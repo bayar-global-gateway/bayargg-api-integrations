@@ -9,7 +9,7 @@ export class BayarGgClient {
   }
 
   checkPayment(invoiceId) {
-    return this.request('GET', '/check-payment.php', { invoice_id: invoiceId });
+    return this.request('GET', '/check-payment.php', { invoice: invoiceId });
   }
 
   listPayments(filters = {}) {
@@ -29,19 +29,35 @@ export class BayarGgClient {
   }
 
   qrisConvert(qris, amount) {
-    return this.request('POST', '/qris-convert.php', {}, { qris, amount });
+    return this.request('POST', '/qris-convert.php', {}, { qris, nominal: amount });
   }
 
-  topupProducts(game = 'ml') {
-    return this.request('GET', '/topup-game/products.php', { game });
+  qrisInfo(qris) {
+    return this.request('POST', '/qris-info.php', {}, { qris });
   }
 
-  createTopupOrder(payload) {
-    return this.request('POST', '/topup-game/order.php', {}, payload);
+  listFiles(activeOnly = true) {
+    return this.request('GET', '/list-files.php', { active_only: String(activeOnly) });
   }
 
-  checkTopupStatus(orderNumber) {
-    return this.request('GET', '/topup-game/status.php', { order_number: orderNumber });
+  listContents(activeOnly = true) {
+    return this.request('GET', '/list-contents.php', { active_only: String(activeOnly) });
+  }
+
+  listImages(activeOnly = true) {
+    return this.request('GET', '/list-images.php', { active_only: String(activeOnly) });
+  }
+
+  waStoreOrders(filters = {}) {
+    return this.request('GET', '/wa-store-orders.php', filters);
+  }
+
+  completeWaStoreOrder(orderNumber, status = 'completed', notify = true) {
+    return this.request('POST', '/wa-store-complete.php', {}, {
+      order_number: orderNumber,
+      status,
+      notify,
+    });
   }
 
   async request(method, path, query = {}, body = null) {

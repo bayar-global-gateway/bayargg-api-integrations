@@ -137,7 +137,7 @@ Contoh aturan:
 Jika ingin verifikasi ulang sebelum fulfilment, panggil:
 
 ```http
-GET https://www.bayar.gg/api/check-payment.php?invoice_id=PAY-USERNAME-000001
+GET https://www.bayar.gg/api/check-payment.php?invoice=PAY-USERNAME-000001
 X-API-Key: YOUR_API_KEY_HERE
 ```
 

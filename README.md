@@ -1,6 +1,6 @@
 # BAYAR GG API Integrations
 
-Contoh integrasi resmi untuk REST API BAYAR GG menggunakan **PHP**, **Python**, dan **Node.js**. Repository ini dibuat agar developer bisa langsung membuat payment link, cek status pembayaran, membaca riwayat transaksi, memakai QRIS Converter, WhatsApp Store API, dan Top Up Game API dari website atau backend sendiri.
+Contoh integrasi resmi untuk REST API yang tampil di **API Docs BAYAR GG** menggunakan **PHP**, **Python**, dan **Node.js**. Repository ini dibuat agar developer bisa langsung membuat payment link, cek status pembayaran, membaca riwayat transaksi, memakai QRIS Converter, Digital Product API, WhatsApp Store API, dan webhook callback dari website atau backend sendiri.
 
 > API production: `https://www.bayar.gg/api`
 
@@ -11,13 +11,34 @@ Contoh integrasi resmi untuk REST API BAYAR GG menggunakan **PHP**, **Python**, 
 - Ambil daftar payment method yang tersedia untuk akun.
 - Statistik akun dan status fitur pembayaran.
 - QRIS Converter untuk mengubah QRIS statis menjadi dinamis.
+- Digital Product API untuk file, konten, dan foto produk.
 - WhatsApp Store order API.
-- Top Up Game API untuk Mobile Legends, PUBG, dan Free Fire.
 - Callback/webhook pembayaran sukses ke server Anda.
 
-## Fitur Premium BAYAR GG
+## Scope Repository Ini
 
-Beberapa fitur membutuhkan akun Premium aktif atau aktivasi admin sesuai ketentuan BAYAR GG:
+Repository ini hanya berisi endpoint yang ada di halaman `https://www.bayar.gg/api-docs`.
+
+Yang termasuk:
+
+- Payment API.
+- Account API.
+- Digital Products API.
+- QRIS Converter API.
+- WhatsApp Store API.
+- Integration guide untuk OVO, QRIS BAYAR GG, BRI Merchant QRIS, GoPay Merchant QRIS.
+- Webhook callback reference.
+
+Yang tidak dimasukkan:
+
+- Endpoint admin internal.
+- Endpoint dashboard user internal.
+- Endpoint Top Up Game public, karena tidak masuk menu utama API Docs.
+- Endpoint kartu virtual admin/internal.
+
+## Fitur API Premium di API Docs
+
+Beberapa fitur API membutuhkan akun Premium aktif, koneksi merchant, atau aktivasi admin sesuai ketentuan BAYAR GG:
 
 | Fitur | Keterangan |
 | --- | --- |
@@ -26,9 +47,6 @@ Beberapa fitur membutuhkan akun Premium aktif atau aktivasi admin sesuai ketentu
 | GoPay Merchant QRIS | Hubungkan akun GoPay Merchant via OTP, cocok untuk QRIS merchant GoPay |
 | OVO Direct Payment | Integrasi OVO untuk auto-matching mutasi pembayaran |
 | WhatsApp Store | Bot toko otomatis di WhatsApp dengan katalog, order, invoice, dan tombol interaktif |
-| Top Up Game | Produk Mobile Legends, PUBG, dan Free Fire via Top Up Game API |
-| VISA Virtual Card | Kartu virtual VISA USD untuk transaksi online global |
-| Mastercard Virtual Card | Kartu virtual Mastercard USD untuk subscription, ads, dan online shopping |
 | QRIS Converter | Convert QRIS statis menjadi QRIS dinamis dengan nominal |
 | Digital Product Delivery | Auto-delivery file, konten tersembunyi, dan foto produk setelah pembayaran |
 | Webhook Callback | Callback otomatis untuk integrasi backend website Anda |
@@ -43,6 +61,7 @@ Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer m
 ├── README.txt
 ├── .env.example
 ├── docs
+│   ├── api-docs-endpoints.md
 │   ├── endpoints.json
 │   └── webhooks.md
 └── examples
@@ -149,7 +168,7 @@ Respons sukses umumnya berisi data invoice, nominal final, dan URL pembayaran. S
 ## Contoh Cek Status Payment
 
 ```bash
-curl "https://www.bayar.gg/api/check-payment.php?invoice_id=PAY-USERNAME-000001" \
+curl "https://www.bayar.gg/api/check-payment.php?invoice=PAY-USERNAME-000001" \
   -H "Accept: application/json" \
   -H "X-API-Key: YOUR_API_KEY_HERE"
 ```
@@ -166,13 +185,13 @@ Gunakan endpoint ini untuk polling ringan jika callback belum diterima.
 | `GET` | `/get-payment-methods.php` | Daftar metode pembayaran aktif |
 | `GET` | `/get-account-status.php` | Status akun dan fitur |
 | `GET` | `/get-statistics.php` | Statistik pembayaran |
+| `GET` | `/list-files.php` | Daftar file digital |
+| `GET` | `/list-contents.php` | Daftar hidden content |
+| `GET` | `/list-images.php` | Daftar foto produk |
 | `POST` | `/qris-convert.php` | Convert QRIS statis ke dinamis |
-| `GET` | `/qris-info.php` | Decode informasi QRIS |
+| `POST` | `/qris-info.php` | Decode informasi QRIS |
 | `GET` | `/wa-store-orders.php` | List order WhatsApp Store |
 | `POST` | `/wa-store-complete.php` | Tandai order WhatsApp Store selesai |
-| `GET` | `/topup-game/products.php` | List produk top up game |
-| `POST` | `/topup-game/order.php` | Buat order top up game |
-| `GET` | `/topup-game/status.php` | Cek status order top up |
 
 Detail machine-readable tersedia di `docs/endpoints.json`.
 
@@ -225,42 +244,6 @@ Rekomendasi handler webhook:
 
 Lihat detail tambahan di `docs/webhooks.md`.
 
-## Integrasi Top Up Game
-
-Base halaman publik Top Up:
-
-```text
-https://topup.bayar.gg
-```
-
-Ambil produk:
-
-```bash
-curl "https://www.bayar.gg/api/topup-game/products.php?game=ml" \
-  -H "Accept: application/json" \
-  -H "X-API-Key: YOUR_API_KEY_HERE"
-```
-
-Buat order:
-
-```json
-{
-  "game": "ml",
-  "user_id_game": "12345678",
-  "server_id": "1234",
-  "product_code": "MLBB3",
-  "payment_method": "qris",
-  "customer_name": "Budi",
-  "customer_phone": "6281234567890"
-}
-```
-
-Cek status:
-
-```http
-GET /topup-game/status.php?order_number=TOPUP-000001
-```
-
 ## Error Handling
 
 Format error umum:
@@ -304,5 +287,4 @@ Status yang perlu ditangani:
 
 - Website: `https://www.bayar.gg`
 - API Docs: `https://www.bayar.gg/api-docs`
-- Top Up: `https://topup.bayar.gg`
 - Email: `support@bayar.gg`

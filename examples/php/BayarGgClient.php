@@ -18,7 +18,7 @@ final class BayarGgClient
 
     public function checkPayment(string $invoiceId): array
     {
-        return $this->request('GET', '/check-payment.php', ['invoice_id' => $invoiceId]);
+        return $this->request('GET', '/check-payment.php', ['invoice' => $invoiceId]);
     }
 
     public function listPayments(array $filters = []): array
@@ -45,23 +45,42 @@ final class BayarGgClient
     {
         return $this->request('POST', '/qris-convert.php', [], [
             'qris' => $qris,
-            'amount' => $amount,
+            'nominal' => $amount,
         ]);
     }
 
-    public function topupProducts(string $game = 'ml'): array
+    public function qrisInfo(string $qris): array
     {
-        return $this->request('GET', '/topup-game/products.php', ['game' => $game]);
+        return $this->request('POST', '/qris-info.php', [], ['qris' => $qris]);
     }
 
-    public function createTopupOrder(array $payload): array
+    public function listFiles(bool $activeOnly = true): array
     {
-        return $this->request('POST', '/topup-game/order.php', [], $payload);
+        return $this->request('GET', '/list-files.php', ['active_only' => $activeOnly ? 'true' : 'false']);
     }
 
-    public function checkTopupStatus(string $orderNumber): array
+    public function listContents(bool $activeOnly = true): array
     {
-        return $this->request('GET', '/topup-game/status.php', ['order_number' => $orderNumber]);
+        return $this->request('GET', '/list-contents.php', ['active_only' => $activeOnly ? 'true' : 'false']);
+    }
+
+    public function listImages(bool $activeOnly = true): array
+    {
+        return $this->request('GET', '/list-images.php', ['active_only' => $activeOnly ? 'true' : 'false']);
+    }
+
+    public function waStoreOrders(array $filters = []): array
+    {
+        return $this->request('GET', '/wa-store-orders.php', $filters);
+    }
+
+    public function completeWaStoreOrder(string $orderNumber, string $status = 'completed', bool $notify = true): array
+    {
+        return $this->request('POST', '/wa-store-complete.php', [], [
+            'order_number' => $orderNumber,
+            'status' => $status,
+            'notify' => $notify,
+        ]);
     }
 
     private function request(string $method, string $path, array $query = [], ?array $body = null): array

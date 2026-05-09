@@ -27,7 +27,7 @@
       "path": "/check-payment.php",
       "description": "Check payment status",
       "query": {
-        "invoice_id": "PAY-USERNAME-000001"
+        "invoice": "PAY-USERNAME-000001"
       }
     },
     {
@@ -61,21 +61,52 @@
       "description": "Convert static QRIS to dynamic QRIS with amount",
       "body": {
         "qris": "STATIC_QRIS_STRING",
-        "amount": 10000
+        "nominal": 10000
       }
     },
     {
-      "method": "GET",
+      "method": "POST",
       "path": "/qris-info.php",
       "description": "Decode QRIS information",
-      "query": {
+      "body": {
         "qris": "QRIS_STRING"
       }
     },
     {
       "method": "GET",
+      "path": "/list-files.php",
+      "description": "List digital files configured in BAYAR GG dashboard",
+      "query": {
+        "active_only": true
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/list-contents.php",
+      "description": "List hidden contents configured in BAYAR GG dashboard",
+      "query": {
+        "active_only": true
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/list-images.php",
+      "description": "List product images configured in BAYAR GG dashboard",
+      "query": {
+        "active_only": true
+      }
+    },
+    {
+      "method": "GET",
       "path": "/wa-store-orders.php",
-      "description": "List WhatsApp Store orders"
+      "description": "List WhatsApp Store orders",
+      "query": {
+        "order_number": "",
+        "status": "",
+        "search": "",
+        "limit": 50,
+        "offset": 0
+      }
     },
     {
       "method": "POST",
@@ -83,37 +114,8 @@
       "description": "Mark WhatsApp Store order as complete",
       "body": {
         "order_number": "WA-ORDER-001",
-        "status": "completed"
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/topup-game/products.php",
-      "description": "List Top Up Game products",
-      "query": {
-        "game": "ml"
-      }
-    },
-    {
-      "method": "POST",
-      "path": "/topup-game/order.php",
-      "description": "Create Top Up Game order",
-      "body": {
-        "game": "ml",
-        "user_id_game": "12345678",
-        "server_id": "1234",
-        "product_code": "MLBB3",
-        "payment_method": "qris",
-        "customer_name": "Customer",
-        "customer_phone": "6281234567890"
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/topup-game/status.php",
-      "description": "Check Top Up Game order status",
-      "query": {
-        "order_number": "TOPUP-000001"
+        "status": "completed",
+        "notify": true
       }
     }
   ]
