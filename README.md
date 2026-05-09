@@ -15,6 +15,26 @@ Contoh integrasi resmi untuk REST API BAYAR GG menggunakan **PHP**, **Python**, 
 - Top Up Game API untuk Mobile Legends, PUBG, dan Free Fire.
 - Callback/webhook pembayaran sukses ke server Anda.
 
+## Fitur Premium BAYAR GG
+
+Beberapa fitur membutuhkan akun Premium aktif atau aktivasi admin sesuai ketentuan BAYAR GG:
+
+| Fitur | Keterangan |
+| --- | --- |
+| QRIS BAYAR GG | QRIS dinamis per merchant dengan mID sendiri, webhook otomatis, dan settlement provider |
+| BRI Merchant QRIS | Hubungkan QRIS BRI merchant sendiri, dana langsung ke rekening BRI |
+| GoPay Merchant QRIS | Hubungkan akun GoPay Merchant via OTP, cocok untuk QRIS merchant GoPay |
+| OVO Direct Payment | Integrasi OVO untuk auto-matching mutasi pembayaran |
+| WhatsApp Store | Bot toko otomatis di WhatsApp dengan katalog, order, invoice, dan tombol interaktif |
+| Top Up Game | Produk Mobile Legends, PUBG, dan Free Fire via Top Up Game API |
+| VISA Virtual Card | Kartu virtual VISA USD untuk transaksi online global |
+| Mastercard Virtual Card | Kartu virtual Mastercard USD untuk subscription, ads, dan online shopping |
+| QRIS Converter | Convert QRIS statis menjadi QRIS dinamis dengan nominal |
+| Digital Product Delivery | Auto-delivery file, konten tersembunyi, dan foto produk setelah pembayaran |
+| Webhook Callback | Callback otomatis untuk integrasi backend website Anda |
+
+Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer mudah menemukan contoh integrasi yang sesuai.
+
 ## Struktur Repository
 
 ```text
