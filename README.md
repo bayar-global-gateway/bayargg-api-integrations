@@ -67,6 +67,8 @@ Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer m
 │   └── webhooks.md
 └── examples
     ├── cli
+    │   ├── bayar-gg-cli.php
+    │   ├── bayar_gg_cli.py
     │   └── bayar-gg-cli.mjs
     ├── web
     │   ├── php
@@ -205,15 +207,57 @@ Fitur semua demo web:
 - List payments.
 - Link langsung ke `payment_url` jika create payment berhasil.
 
-### CLI Version
+### CLI Version PHP
 
-Contoh CLI berbasis Node.js dan memakai client yang sama dengan `examples/nodejs`.
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php help
+```
+
+Contoh:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php methods
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php create-payment \
+  --amount=10000 \
+  --description="Order #1001" \
+  --payment-method=qris
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php check-payment \
+  --invoice=PAY-USERNAME-000001
+```
+
+### CLI Version Python
+
+Install dependency:
+
+```bash
+python3 -m pip install -r examples/python/requirements.txt
+```
+
+Jalankan:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py --help
+```
+
+Contoh:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py methods
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py create-payment \
+  --amount=10000 \
+  --description="Order #1001" \
+  --payment-method=qris
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py check-payment \
+  --invoice=PAY-USERNAME-000001
+```
+
+### CLI Version Node.js
 
 ```bash
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs help
 ```
 
-Contoh command:
+Contoh:
 
 ```bash
 # List payment methods

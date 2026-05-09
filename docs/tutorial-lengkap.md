@@ -30,14 +30,16 @@ export BAYAR_GG_BASE_URL="https://www.bayar.gg/api"
 
 ## 3. Pilih Contoh Integrasi
 
-Repository ini menyediakan empat jenis contoh:
+Repository ini menyediakan beberapa jenis contoh:
 
 | Jenis | Lokasi | Kegunaan |
 | --- | --- | --- |
 | PHP SDK-style | `examples/php` | Integrasi backend PHP sederhana |
 | Python SDK-style | `examples/python` | Integrasi backend Python sederhana |
 | Node.js SDK-style | `examples/nodejs` | Integrasi backend Node.js sederhana |
-| CLI | `examples/cli` | Test endpoint dari terminal |
+| CLI PHP | `examples/cli/bayar-gg-cli.php` | Test endpoint dari terminal dengan PHP |
+| CLI Python | `examples/cli/bayar_gg_cli.py` | Test endpoint dari terminal dengan Python |
+| CLI Node.js | `examples/cli/bayar-gg-cli.mjs` | Test endpoint dari terminal dengan Node.js |
 | Web PHP | `examples/web/php` | Demo form web versi PHP |
 | Web Python | `examples/web/python` | Demo form web versi Python |
 | Web Node.js | `examples/web/nodejs` | Demo form web versi Node.js |
@@ -84,7 +86,58 @@ Semua web demo menjalankan request API dari server, bukan dari JavaScript fronte
 
 ## 5. Menjalankan CLI
 
-CLI cocok untuk test cepat sebelum masuk ke code website.
+CLI cocok untuk test cepat sebelum masuk ke code website. Pilih sesuai bahasa yang paling nyaman.
+
+### PHP CLI
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php help
+```
+
+Create payment:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php create-payment \
+  --amount=10000 \
+  --description="Order #1001" \
+  --payment-method=qris \
+  --customer-name="Budi" \
+  --customer-phone=6281234567890
+```
+
+Check payment:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php check-payment \
+  --invoice=PAY-USERNAME-000001
+```
+
+### Python CLI
+
+```bash
+python3 -m pip install -r examples/python/requirements.txt
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py --help
+```
+
+Create payment:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py create-payment \
+  --amount=10000 \
+  --description="Order #1001" \
+  --payment-method=qris \
+  --customer-name="Budi" \
+  --customer-phone=6281234567890
+```
+
+Check payment:
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py check-payment \
+  --invoice=PAY-USERNAME-000001
+```
+
+### Node.js CLI
 
 ```bash
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs help
