@@ -1,0 +1,120 @@
+{
+  "name": "BAYAR GG API",
+  "baseUrl": "https://www.bayar.gg/api",
+  "authentication": {
+    "type": "apiKey",
+    "header": "X-API-Key",
+    "query": "apiKey"
+  },
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/create-payment.php",
+      "description": "Create a new payment link",
+      "body": {
+        "amount": 10000,
+        "description": "Order #INV-001",
+        "customer_name": "Customer Name",
+        "customer_email": "customer@example.com",
+        "customer_phone": "6281234567890",
+        "callback_url": "https://example.com/webhook",
+        "redirect_url": "https://example.com/thank-you",
+        "payment_method": "qris"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/check-payment.php",
+      "description": "Check payment status",
+      "query": {
+        "invoice_id": "PAY-USERNAME-000001"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/list-payments.php",
+      "description": "List payment history",
+      "query": {
+        "status": "paid",
+        "page": 1,
+        "limit": 20
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-payment-methods.php",
+      "description": "List available payment methods"
+    },
+    {
+      "method": "GET",
+      "path": "/get-account-status.php",
+      "description": "Get account and feature status"
+    },
+    {
+      "method": "GET",
+      "path": "/get-statistics.php",
+      "description": "Get account payment statistics"
+    },
+    {
+      "method": "POST",
+      "path": "/qris-convert.php",
+      "description": "Convert static QRIS to dynamic QRIS with amount",
+      "body": {
+        "qris": "STATIC_QRIS_STRING",
+        "amount": 10000
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/qris-info.php",
+      "description": "Decode QRIS information",
+      "query": {
+        "qris": "QRIS_STRING"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/wa-store-orders.php",
+      "description": "List WhatsApp Store orders"
+    },
+    {
+      "method": "POST",
+      "path": "/wa-store-complete.php",
+      "description": "Mark WhatsApp Store order as complete",
+      "body": {
+        "order_number": "WA-ORDER-001",
+        "status": "completed"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/topup-game/products.php",
+      "description": "List Top Up Game products",
+      "query": {
+        "game": "ml"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/topup-game/order.php",
+      "description": "Create Top Up Game order",
+      "body": {
+        "game": "ml",
+        "user_id_game": "12345678",
+        "server_id": "1234",
+        "product_code": "MLBB3",
+        "payment_method": "qris",
+        "customer_name": "Customer",
+        "customer_phone": "6281234567890"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/topup-game/status.php",
+      "description": "Check Top Up Game order status",
+      "query": {
+        "order_number": "TOPUP-000001"
+      }
+    }
+  ]
+}

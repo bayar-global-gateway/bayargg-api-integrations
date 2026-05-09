@@ -1,0 +1,10 @@
+.env
+.env.*
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+*.log
+*.tmp
+composer.lock
+package-lock.json
