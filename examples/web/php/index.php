@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../php/BayarGgClient.php';
+require __DIR__ . '/../../php/BayarGgClient.php';
 
 $apiKey = getenv('BAYAR_GG_API_KEY') ?: '';
 $baseUrl = getenv('BAYAR_GG_BASE_URL') ?: 'https://www.bayar.gg/api';
@@ -24,7 +24,7 @@ if ($client && $action !== '') {
         if ($action === 'create_payment') {
             $result = $client->createPayment([
                 'amount' => (int)($_POST['amount'] ?? 10000),
-                'description' => trim($_POST['description'] ?? 'Test payment from BAYAR GG web example'),
+                'description' => trim($_POST['description'] ?? 'Test payment from BAYAR GG PHP web example'),
                 'customer_name' => trim($_POST['customer_name'] ?? ''),
                 'customer_email' => trim($_POST['customer_email'] ?? ''),
                 'customer_phone' => trim($_POST['customer_phone'] ?? ''),
@@ -57,7 +57,7 @@ if ($client && $action !== '') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BAYAR GG API Web Example</title>
+    <title>BAYAR GG API PHP Web Example</title>
     <style>
         :root { color-scheme: dark; --bg:#08111f; --card:#101b2d; --border:#20324d; --text:#edf3ff; --muted:#9fb0c8; --blue:#2f80ff; --green:#19c37d; --red:#ff5c5c; }
         * { box-sizing: border-box; }
@@ -71,7 +71,7 @@ if ($client && $action !== '') {
         label { display: block; margin: 12px 0 6px; font-size: 13px; color: var(--muted); font-weight: 700; }
         input, select { width: 100%; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--border); background: #07101d; color: var(--text); }
         button, .button { margin-top: 14px; display: inline-flex; border: 0; border-radius: 10px; padding: 11px 14px; color: white; background: var(--blue); cursor: pointer; font-weight: 800; text-decoration: none; }
-        .button.secondary, button.secondary { background: #28374f; }
+        .button.secondary { background: #28374f; }
         .warning { border-color: rgba(255, 197, 61, .35); background: rgba(255, 197, 61, .08); }
         .error { border-color: rgba(255, 92, 92, .35); background: rgba(255, 92, 92, .08); color: #ffdede; }
         .success { border-color: rgba(25, 195, 125, .35); background: rgba(25, 195, 125, .08); }
@@ -83,15 +83,14 @@ if ($client && $action !== '') {
 <body>
 <main>
     <header>
-        <h1>BAYAR GG API Web Example</h1>
-        <p>Demo web server-side untuk endpoint yang ada di API Docs BAYAR GG. API key hanya dibaca di server dari environment variable <code>BAYAR_GG_API_KEY</code>, tidak dikirim ke browser.</p>
+        <h1>BAYAR GG API PHP Web Example</h1>
+        <p>Demo PHP server-side. API key hanya dibaca dari environment variable <code>BAYAR_GG_API_KEY</code>.</p>
     </header>
 
     <?php if (!$client): ?>
         <section class="card warning">
             <strong>API key belum diset.</strong>
-            <p>Jalankan demo dengan environment variable:</p>
-            <pre><code>BAYAR_GG_API_KEY=YOUR_API_KEY_HERE php -S 127.0.0.1:8080 -t examples/web</code></pre>
+            <pre><code>BAYAR_GG_API_KEY=YOUR_API_KEY_HERE php -S 127.0.0.1:8080 -t examples/web/php</code></pre>
         </section>
     <?php endif; ?>
 
@@ -102,7 +101,7 @@ if ($client && $action !== '') {
             <label>Amount</label>
             <input name="amount" type="number" value="<?= h($_POST['amount'] ?? '10000') ?>" min="1000">
             <label>Description</label>
-            <input name="description" value="<?= h($_POST['description'] ?? 'Test payment from BAYAR GG web example') ?>">
+            <input name="description" value="<?= h($_POST['description'] ?? 'Test payment from PHP web example') ?>">
             <label>Payment Method</label>
             <select name="payment_method">
                 <?php foreach (['qris', 'qris_bayar_gg', 'qris_user', 'gopay_qris', 'ovo'] as $method): ?>
@@ -152,10 +151,7 @@ if ($client && $action !== '') {
     </section>
 
     <?php if ($error): ?>
-        <section class="card error" style="margin-top:16px">
-            <strong>Error</strong>
-            <p><?= h($error) ?></p>
-        </section>
+        <section class="card error" style="margin-top:16px"><strong>Error</strong><p><?= h($error) ?></p></section>
     <?php endif; ?>
 
     <?php if ($result !== null): ?>

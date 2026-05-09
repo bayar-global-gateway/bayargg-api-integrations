@@ -68,7 +68,13 @@ Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer m
     ├── cli
     │   └── bayar-gg-cli.mjs
     ├── web
-    │   └── index.php
+    │   ├── php
+    │   │   └── index.php
+    │   ├── python
+    │   │   └── app.py
+    │   └── nodejs
+    │       ├── package.json
+    │       └── server.mjs
     ├── php
     │   ├── BayarGgClient.php
     │   └── example.php
@@ -125,12 +131,12 @@ npm install
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node example.mjs
 ```
 
-### Web Version
+### Web Version PHP
 
-Contoh web memakai PHP server-side agar API key tidak terekspos ke frontend.
+Contoh web PHP server-side agar API key tidak terekspos ke frontend.
 
 ```bash
-BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php -S 127.0.0.1:8080 -t examples/web
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php -S 127.0.0.1:8080 -t examples/web/php
 ```
 
 Buka:
@@ -139,7 +145,35 @@ Buka:
 http://127.0.0.1:8080
 ```
 
-Fitur demo web:
+### Web Version Python
+
+Contoh web Python memakai standard library `http.server`, tanpa dependency tambahan.
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/web/python/app.py
+```
+
+Buka:
+
+```text
+http://127.0.0.1:8081
+```
+
+### Web Version Node.js
+
+Contoh web Node.js memakai built-in `http` dan `fetch`, tanpa dependency tambahan.
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/web/nodejs/server.mjs
+```
+
+Buka:
+
+```text
+http://127.0.0.1:8082
+```
+
+Fitur semua demo web:
 
 - Create payment.
 - Check payment.
