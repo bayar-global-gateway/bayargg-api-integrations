@@ -63,6 +63,7 @@ Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer m
 ├── docs
 │   ├── api-docs-endpoints.md
 │   ├── endpoints.json
+│   ├── tutorial-lengkap.md
 │   └── webhooks.md
 └── examples
     ├── cli
@@ -105,6 +106,27 @@ Authentication menggunakan header:
 X-API-Key: YOUR_API_KEY_HERE
 Accept: application/json
 ```
+
+## Tutorial Lengkap
+
+Jika baru pertama kali integrasi, mulai dari panduan ini:
+
+`docs/tutorial-lengkap.md`
+
+Isi tutorial:
+
+- Alur integrasi checkout dari nol.
+- Cara ambil dan menyimpan API key.
+- Cara menjalankan web demo PHP, Python, dan Node.js.
+- Cara menjalankan CLI.
+- Create payment dan redirect ke `payment_url`.
+- Setup callback/webhook.
+- Cek status sebagai fallback.
+- Digital product delivery.
+- QRIS Converter.
+- WhatsApp Store API.
+- Contoh struktur database order.
+- Checklist production dan troubleshooting.
 
 ## Quick Start
 
