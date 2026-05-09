@@ -65,6 +65,10 @@ Topik GitHub repository ini juga mengikuti fitur-fitur tersebut agar developer m
 │   ├── endpoints.json
 │   └── webhooks.md
 └── examples
+    ├── cli
+    │   └── bayar-gg-cli.mjs
+    ├── web
+    │   └── index.php
     ├── php
     │   ├── BayarGgClient.php
     │   └── example.php
@@ -119,6 +123,70 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 example.py
 cd examples/nodejs
 npm install
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node example.mjs
+```
+
+### Web Version
+
+Contoh web memakai PHP server-side agar API key tidak terekspos ke frontend.
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php -S 127.0.0.1:8080 -t examples/web
+```
+
+Buka:
+
+```text
+http://127.0.0.1:8080
+```
+
+Fitur demo web:
+
+- Create payment.
+- Check payment.
+- List payment methods.
+- Account status.
+- Statistics.
+- List payments.
+- Link langsung ke `payment_url` jika create payment berhasil.
+
+### CLI Version
+
+Contoh CLI berbasis Node.js dan memakai client yang sama dengan `examples/nodejs`.
+
+```bash
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs help
+```
+
+Contoh command:
+
+```bash
+# List payment methods
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs methods
+
+# Create payment
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs create-payment \
+  --amount=10000 \
+  --description="Order #1001" \
+  --payment-method=qris \
+  --customer-name="Budi" \
+  --customer-phone=6281234567890
+
+# Check invoice
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs check-payment \
+  --invoice=PAY-USERNAME-000001
+
+# List paid payments
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs list-payments \
+  --status=paid \
+  --limit=10
+
+# Digital product references
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs files
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs contents
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs images
+
+# WhatsApp Store orders
+BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs wa-orders --limit=20
 ```
 
 ## Contoh Membuat Payment
