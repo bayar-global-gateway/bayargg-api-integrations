@@ -137,7 +137,7 @@ function renderPage(form, result, error) {
 }
 
 function methodSelect(selected) {
-  return `<select name="payment_method">${['qris', 'qris_bayar_gg', 'qris_user', 'gopay_qris', 'ovo'].map((method) => (
+  return `<select name="payment_method">${['qris', 'qris_bayar_gg', 'qris_user', 'qris_livin', 'gopay_qris', 'ovo'].map((method) => (
     `<option value="${esc(method)}" ${method === selected ? 'selected' : ''}>${esc(method)}</option>`
   )).join('')}</select>`;
 }

@@ -238,6 +238,7 @@ Payment method umum:
 | `qris` | QRIS Admin |
 | `qris_bayar_gg` | QRIS BAYAR GG per merchant, butuh aktivasi |
 | `qris_user` | BRI Merchant QRIS user |
+| `qris_livin` | Livin Merchant QRIS (Bank Mandiri) |
 | `gopay_qris` | GoPay Merchant QRIS |
 | `ovo` | OVO Direct Payment |
 

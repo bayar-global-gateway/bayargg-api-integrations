@@ -32,6 +32,7 @@ Payment method yang umum:
 - `qris`
 - `qris_bayar_gg`
 - `qris_user`
+- `qris_livin`
 - `gopay_qris`
 - `ovo`
 

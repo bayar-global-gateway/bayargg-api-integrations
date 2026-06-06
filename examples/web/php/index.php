@@ -104,7 +104,7 @@ if ($client && $action !== '') {
             <input name="description" value="<?= h($_POST['description'] ?? 'Test payment from PHP web example') ?>">
             <label>Payment Method</label>
             <select name="payment_method">
-                <?php foreach (['qris', 'qris_bayar_gg', 'qris_user', 'gopay_qris', 'ovo'] as $method): ?>
+                <?php foreach (['qris', 'qris_bayar_gg', 'qris_user', 'qris_livin', 'gopay_qris', 'ovo'] as $method): ?>
                     <option value="<?= h($method) ?>" <?= (($_POST['payment_method'] ?? 'qris') === $method) ? 'selected' : '' ?>><?= h($method) ?></option>
                 <?php endforeach; ?>
             </select>

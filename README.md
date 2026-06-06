@@ -26,7 +26,7 @@ Yang termasuk:
 - Digital Products API.
 - QRIS Converter API.
 - WhatsApp Store API.
-- Integration guide untuk OVO, QRIS BAYAR GG, BRI Merchant QRIS, GoPay Merchant QRIS.
+- Integration guide untuk OVO, QRIS BAYAR GG, BRI Merchant QRIS, GoPay Merchant QRIS, Livin Merchant QRIS.
 - Webhook callback reference.
 
 Yang tidak dimasukkan:
@@ -45,6 +45,7 @@ Beberapa fitur API membutuhkan akun Premium aktif, koneksi merchant, atau aktiva
 | QRIS BAYAR GG | QRIS dinamis per merchant dengan mID sendiri, webhook otomatis, dan settlement provider |
 | BRI Merchant QRIS | Hubungkan QRIS BRI merchant sendiri, dana langsung ke rekening BRI |
 | GoPay Merchant QRIS | Hubungkan akun GoPay Merchant via OTP, cocok untuk QRIS merchant GoPay |
+| Livin Merchant QRIS | Hubungkan akun Livin' Merchant (Bank Mandiri), dana langsung ke rekening settlement Mandiri |
 | OVO Direct Payment | Integrasi OVO untuk auto-matching mutasi pembayaran |
 | WhatsApp Store | Bot toko otomatis di WhatsApp dengan katalog, order, invoice, dan tombol interaktif |
 | QRIS Converter | Convert QRIS statis menjadi QRIS dinamis dengan nominal |
@@ -375,6 +376,7 @@ Nilai `payment_method` yang umum:
 
 - `qris`
 - `qris_user`
+- `qris_livin`
 - `qris_bayar_gg`
 - `gopay_qris`
 - `ovo`

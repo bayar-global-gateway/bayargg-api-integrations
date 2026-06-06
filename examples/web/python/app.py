@@ -177,7 +177,7 @@ def page(form: dict, result: dict | None, error: str) -> str:
 
 
 def method_select(selected: str) -> str:
-    methods = ["qris", "qris_bayar_gg", "qris_user", "gopay_qris", "ovo"]
+    methods = ["qris", "qris_bayar_gg", "qris_user", "qris_livin", "gopay_qris", "ovo"]
     return "<select name='payment_method'>" + "".join(
         f"<option value='{esc(m)}' {'selected' if m == selected else ''}>{esc(m)}</option>" for m in methods
     ) + "</select>"
