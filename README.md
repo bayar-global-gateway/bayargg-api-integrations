@@ -1,3 +1,14 @@
+<p align="center">
+  <img src="assets/banner.png" alt="BAYAR GG API Integrations — REST API Examples for PHP, Python & Node.js" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://www.bayar.gg"><img src="https://img.shields.io/badge/BAYAR%20GG-Official%20Examples-1a86ff?style=flat-square" alt="Official Examples"></a>
+  <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square" alt="PHP 7.4+">
+  <img src="https://img.shields.io/badge/Python-3.8%2B-3776ab?style=flat-square" alt="Python 3.8+">
+  <img src="https://img.shields.io/badge/Node.js-16%2B-339933?style=flat-square" alt="Node.js 16+">
+</p>
+
 # BAYAR GG API Integrations
 
 Contoh integrasi **resmi** untuk REST API BAYAR GG — endpoint yang sama dengan yang tampil di **[API Docs](https://www.bayar.gg/api-docs)** — dalam **PHP**, **Python**, dan **Node.js**.
