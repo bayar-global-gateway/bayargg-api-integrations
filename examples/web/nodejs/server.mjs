@@ -51,6 +51,7 @@ async function handleAction(action, form) {
       customer_email: form.get('customer_email') || '',
       customer_phone: form.get('customer_phone') || '',
       payment_method: form.get('payment_method') || 'qris',
+      payment_url: form.get('payment_url') || 'https://www.bayar.gg/pay',
       callback_url: form.get('callback_url') || '',
       redirect_url: form.get('redirect_url') || '',
     });
@@ -106,6 +107,7 @@ function renderPage(form, result, error) {
       <label>Customer Name</label><input name="customer_name" value="${esc(form.get('customer_name') || 'Budi')}">
       <label>Customer Email</label><input name="customer_email" value="${esc(form.get('customer_email') || 'budi@example.com')}">
       <label>Customer Phone</label><input name="customer_phone" value="${esc(form.get('customer_phone') || '6281234567890')}">
+      <label>Payment URL</label><input name="payment_url" value="${esc(form.get('payment_url') || 'https://www.bayar.gg/pay')}">
       <label>Callback URL</label><input name="callback_url" placeholder="https://example.com/webhook/bayar-gg" value="${esc(form.get('callback_url') || '')}">
       <label>Redirect URL</label><input name="redirect_url" placeholder="https://example.com/thank-you" value="${esc(form.get('redirect_url') || '')}">
       <button type="submit">Create Payment</button>

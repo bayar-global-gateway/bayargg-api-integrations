@@ -43,6 +43,7 @@ async function run(cmd, options) {
         customer_email: options.customer_email || options.customerEmail || '',
         customer_phone: options.customer_phone || options.customerPhone || '',
         payment_method: options.payment_method || options.paymentMethod || 'qris',
+        payment_url: options.payment_url || options.paymentUrl || 'https://www.bayar.gg/pay',
         callback_url: options.callback_url || options.callbackUrl || '',
         redirect_url: options.redirect_url || options.redirectUrl || '',
         file_id: options.file_id || options.fileId || '',
@@ -178,7 +179,7 @@ Commands:
 
 Examples:
   node examples/cli/bayar-gg-cli.mjs methods
-  node examples/cli/bayar-gg-cli.mjs create-payment --amount=10000 --description="Order #1001" --payment-method=qris
+  node examples/cli/bayar-gg-cli.mjs create-payment --amount=10000 --description="Order #1001" --payment-method=qris --payment-url=https://www.bayar.gg/pay
   node examples/cli/bayar-gg-cli.mjs check-payment --invoice=PAY-USERNAME-000001
   node examples/cli/bayar-gg-cli.mjs list-payments --status=paid --limit=10
 `);

@@ -4,6 +4,13 @@ Contoh integrasi resmi untuk REST API yang tampil di **API Docs BAYAR GG** mengg
 
 > API production: `https://www.bayar.gg/api`
 
+## Clone
+
+```bash
+git clone https://github.com/bayar-global-gateway/bayargg-api-integrations.git
+cd bayargg-api-integrations
+```
+
 ## Fitur API
 
 - Buat payment link QRIS / metode pembayaran aktif.
@@ -221,7 +228,8 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php methods
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php create-payment \
   --amount=10000 \
   --description="Order #1001" \
-  --payment-method=qris
+  --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php check-payment \
   --invoice=PAY-USERNAME-000001
 ```
@@ -247,7 +255,8 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py method
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py create-payment \
   --amount=10000 \
   --description="Order #1001" \
-  --payment-method=qris
+  --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay
 BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py check-payment \
   --invoice=PAY-USERNAME-000001
 ```
@@ -269,6 +278,7 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs create-p
   --amount=10000 \
   --description="Order #1001" \
   --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay \
   --customer-name="Budi" \
   --customer-phone=6281234567890
 
@@ -308,10 +318,13 @@ Payload:
   "customer_email": "budi@example.com",
   "customer_phone": "6281234567890",
   "payment_method": "qris",
+  "payment_url": "https://www.bayar.gg/pay",
   "callback_url": "https://example.com/webhook/bayar-gg",
   "redirect_url": "https://example.com/thank-you"
 }
 ```
+
+Catatan: `payment_url` wajib dikirim sebagai string. Gunakan `https://www.bayar.gg/pay` untuk checkout default BAYAR GG, atau URL custom yang sudah aktif di menu Checkout URL.
 
 cURL:
 
@@ -327,6 +340,7 @@ curl -X POST "https://www.bayar.gg/api/create-payment.php" \
     "customer_email": "budi@example.com",
     "customer_phone": "6281234567890",
     "payment_method": "qris",
+    "payment_url": "https://www.bayar.gg/pay",
     "callback_url": "https://example.com/webhook/bayar-gg",
     "redirect_url": "https://example.com/thank-you"
   }'

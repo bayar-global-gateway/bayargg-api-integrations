@@ -19,6 +19,7 @@
         "customer_phone": "6281234567890",
         "callback_url": "https://example.com/webhook",
         "redirect_url": "https://example.com/thank-you",
+        "payment_url": "https://www.bayar.gg/pay",
         "payment_method": "qris"
       }
     },

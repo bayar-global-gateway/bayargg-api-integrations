@@ -29,6 +29,7 @@ if ($client && $action !== '') {
                 'customer_email' => trim($_POST['customer_email'] ?? ''),
                 'customer_phone' => trim($_POST['customer_phone'] ?? ''),
                 'payment_method' => trim($_POST['payment_method'] ?? 'qris'),
+                'payment_url' => trim($_POST['payment_url'] ?? 'https://www.bayar.gg/pay'),
                 'callback_url' => trim($_POST['callback_url'] ?? ''),
                 'redirect_url' => trim($_POST['redirect_url'] ?? ''),
             ]);
@@ -114,6 +115,8 @@ if ($client && $action !== '') {
             <input name="customer_email" value="<?= h($_POST['customer_email'] ?? 'budi@example.com') ?>">
             <label>Customer Phone</label>
             <input name="customer_phone" value="<?= h($_POST['customer_phone'] ?? '6281234567890') ?>">
+            <label>Payment URL</label>
+            <input name="payment_url" value="<?= h($_POST['payment_url'] ?? 'https://www.bayar.gg/pay') ?>">
             <label>Callback URL</label>
             <input name="callback_url" placeholder="https://example.com/webhook/bayar-gg" value="<?= h($_POST['callback_url'] ?? '') ?>">
             <label>Redirect URL</label>

@@ -19,6 +19,7 @@ def main() -> None:
         "customer_email": "customer@example.com",
         "customer_phone": "6281234567890",
         "payment_method": "qris",
+        "payment_url": "https://www.bayar.gg/pay",
         "callback_url": "https://example.com/webhook/bayar-gg",
         "redirect_url": "https://example.com/thank-you",
     })

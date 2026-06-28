@@ -101,6 +101,7 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" php examples/cli/bayar-gg-cli.php create-pa
   --amount=10000 \
   --description="Order #1001" \
   --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay \
   --customer-name="Budi" \
   --customer-phone=6281234567890
 ```
@@ -126,6 +127,7 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" python3 examples/cli/bayar_gg_cli.py create
   --amount=10000 \
   --description="Order #1001" \
   --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay \
   --customer-name="Budi" \
   --customer-phone=6281234567890
 ```
@@ -156,6 +158,7 @@ BAYAR_GG_API_KEY="YOUR_API_KEY_HERE" node examples/cli/bayar-gg-cli.mjs create-p
   --amount=10000 \
   --description="Order #1001" \
   --payment-method=qris \
+  --payment-url=https://www.bayar.gg/pay \
   --customer-name="Budi" \
   --customer-phone=6281234567890 \
   --callback-url="https://example.com/webhook/bayar-gg" \
@@ -191,9 +194,12 @@ Body minimal:
 {
   "amount": 10000,
   "description": "Order #1001",
+  "payment_url": "https://www.bayar.gg/pay",
   "payment_method": "qris"
 }
 ```
+
+`payment_url` wajib berupa string. Gunakan `https://www.bayar.gg/pay` untuk checkout default BAYAR GG, atau URL custom yang sudah aktif di menu Checkout URL.
 
 Body lengkap:
 
@@ -205,6 +211,7 @@ Body lengkap:
   "customer_email": "budi@example.com",
   "customer_phone": "6281234567890",
   "payment_method": "qris",
+  "payment_url": "https://www.bayar.gg/pay",
   "callback_url": "https://example.com/webhook/bayar-gg",
   "redirect_url": "https://example.com/thank-you",
   "file_id": "",

@@ -50,6 +50,7 @@ function runCommand(BayarGgClient $client, string $command, array $args): ?array
                 'customer_email' => $args['customer-email'] ?? $args['customerEmail'] ?? '',
                 'customer_phone' => $args['customer-phone'] ?? $args['customerPhone'] ?? '',
                 'payment_method' => $args['payment-method'] ?? $args['paymentMethod'] ?? 'qris',
+                'payment_url' => $args['payment-url'] ?? $args['paymentUrl'] ?? 'https://www.bayar.gg/pay',
                 'callback_url' => $args['callback-url'] ?? $args['callbackUrl'] ?? '',
                 'redirect_url' => $args['redirect-url'] ?? $args['redirectUrl'] ?? '',
                 'file_id' => $args['file-id'] ?? $args['fileId'] ?? '',
@@ -177,7 +178,7 @@ Commands:
 
 Examples:
   php examples/cli/bayar-gg-cli.php methods
-  php examples/cli/bayar-gg-cli.php create-payment --amount=10000 --description="Order #1001" --payment-method=qris
+  php examples/cli/bayar-gg-cli.php create-payment --amount=10000 --description="Order #1001" --payment-method=qris --payment-url=https://www.bayar.gg/pay
   php examples/cli/bayar-gg-cli.php check-payment --invoice=PAY-USERNAME-000001
 
 TXT;

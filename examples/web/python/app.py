@@ -79,6 +79,7 @@ class Handler(BaseHTTPRequestHandler):
                 "customer_email": first(form, "customer_email", ""),
                 "customer_phone": first(form, "customer_phone", ""),
                 "payment_method": first(form, "payment_method", "qris"),
+                "payment_url": first(form, "payment_url", "https://www.bayar.gg/pay"),
                 "callback_url": first(form, "callback_url", ""),
                 "redirect_url": first(form, "redirect_url", ""),
             })
@@ -146,6 +147,7 @@ def page(form: dict, result: dict | None, error: str) -> str:
       <label>Customer Name</label><input name="customer_name" value="{esc(first(form, 'customer_name', 'Budi'))}">
       <label>Customer Email</label><input name="customer_email" value="{esc(first(form, 'customer_email', 'budi@example.com'))}">
       <label>Customer Phone</label><input name="customer_phone" value="{esc(first(form, 'customer_phone', '6281234567890'))}">
+      <label>Payment URL</label><input name="payment_url" value="{esc(first(form, 'payment_url', 'https://www.bayar.gg/pay'))}">
       <label>Callback URL</label><input name="callback_url" placeholder="https://example.com/webhook/bayar-gg" value="{esc(first(form, 'callback_url', ''))}">
       <label>Redirect URL</label><input name="redirect_url" placeholder="https://example.com/thank-you" value="{esc(first(form, 'redirect_url', ''))}">
       <button type="submit">Create Payment</button>

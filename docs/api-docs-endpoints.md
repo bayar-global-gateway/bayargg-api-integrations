@@ -19,6 +19,7 @@ Body utama:
   "customer_phone": "6281234567890",
   "callback_url": "https://example.com/webhook/bayar-gg",
   "redirect_url": "https://example.com/thank-you",
+  "payment_url": "https://www.bayar.gg/pay",
   "file_id": "",
   "content_id": "",
   "product_image_id": "",

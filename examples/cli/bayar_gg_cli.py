@@ -53,6 +53,7 @@ def build_parser() -> argparse.ArgumentParser:
     create.add_argument("--customer-email", default="")
     create.add_argument("--customer-phone", default="")
     create.add_argument("--payment-method", default="qris")
+    create.add_argument("--payment-url", default="https://www.bayar.gg/pay")
     create.add_argument("--callback-url", default="")
     create.add_argument("--redirect-url", default="")
     create.add_argument("--file-id", default="")
@@ -114,6 +115,7 @@ def run_command(client: BayarGgClient, args: argparse.Namespace) -> dict:
             "customer_email": args.customer_email,
             "customer_phone": args.customer_phone,
             "payment_method": args.payment_method,
+            "payment_url": args.payment_url,
             "callback_url": args.callback_url,
             "redirect_url": args.redirect_url,
             "file_id": args.file_id,
