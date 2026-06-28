@@ -134,7 +134,7 @@ node example.mjs
 
 ```bash
 # PHP
-php examples/cli/bayar-gg-cli.php create --amount=10000 --description="Order A" --payment-method=qris --payment-url=https://www.bayar.gg/pay
+php examples/cli/bayar-gg-cli.php create-payment --amount=10000 --description="Order A" --payment-method=qris --payment-url=https://www.bayar.gg/pay
 
 # Python
 python3 examples/cli/bayar_gg_cli.py create --amount=10000 --description="Order A" --payment-method=qris --payment-url=https://www.bayar.gg/pay

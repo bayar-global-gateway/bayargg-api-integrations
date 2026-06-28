@@ -114,7 +114,7 @@ def page(form: dict, result: dict | None, error: str) -> str:
     if error:
         result_html = f'<section class="card error"><strong>Error</strong><p>{esc(error)}</p></section>'
     elif result is not None:
-        payment_url = result.get("payment_url") or result.get("data", {}).get("payment_url")
+        payment_url = result.get("payment_url") or (result.get("data") or {}).get("payment_url")
         link = f'<p><a class="button" href="{esc(payment_url)}" target="_blank">Open Payment URL</a></p>' if payment_url else ""
         result_html = f'<section class="card success"><h2>Response</h2>{link}<pre><code>{esc(json.dumps(result, indent=2, ensure_ascii=False))}</code></pre></section>'
 

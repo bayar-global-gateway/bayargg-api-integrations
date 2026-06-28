@@ -160,8 +160,9 @@ if ($client && $action !== '') {
     <?php if ($result !== null): ?>
         <section class="card success" style="margin-top:16px">
             <h2>Response</h2>
-            <?php if (!empty($result['payment_url'])): ?>
-                <p><a class="button" href="<?= h($result['payment_url']) ?>" target="_blank" rel="noopener">Open Payment URL</a></p>
+            <?php $payUrl = $result['payment_url'] ?? ($result['data']['payment_url'] ?? ''); ?>
+            <?php if (!empty($payUrl)): ?>
+                <p><a class="button" href="<?= h($payUrl) ?>" target="_blank" rel="noopener">Open Payment URL</a></p>
             <?php endif; ?>
             <pre><code><?= h(prettyJson($result)) ?></code></pre>
         </section>
