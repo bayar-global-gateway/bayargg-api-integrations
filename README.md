@@ -7,6 +7,7 @@
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square" alt="PHP 7.4+">
   <img src="https://img.shields.io/badge/Python-3.8%2B-3776ab?style=flat-square" alt="Python 3.8+">
   <img src="https://img.shields.io/badge/Node.js-16%2B-339933?style=flat-square" alt="Node.js 16+">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License MIT">
 </p>
 
 # BAYAR GG API Integrations
@@ -366,5 +367,11 @@ Selalu cek field `success` sebelum membaca `data`.
 - **Dashboard:** https://www.bayar.gg/dashboard
 - **Auto Integrate AI:** https://www.bayar.gg/auto-integrate
 - **Email:** support@bayar.gg
+
+---
+
+## Lisensi
+
+Dirilis di bawah lisensi **MIT** — bebas dipakai, disalin, dan dimodifikasi untuk integrasi Anda. Lihat berkas [LICENSE](LICENSE).
 
 © BAYAR GG (PT BAYAR GLOBAL GATEWAY). Contoh integrasi resmi untuk penggunaan dengan layanan BAYAR GG.
