@@ -37,7 +37,7 @@ Dengan kit ini Anda bisa langsung: membuat payment link (QRIS & metode lain), ce
 - WhatsApp Store API: daftar & selesaikan order (`wa-store-orders`, `wa-store-complete`).
 - **Merchant API**: hubungkan & baca akun OVO / BRI / GoPay / Livin' (`accounts-connect`) — paket Premium.
 - Webhook callback otomatis saat pembayaran sukses.
-- **Plugin WooCommerce** siap pasang di [`integrations/woocommerce/`](integrations/woocommerce) — terima QRIS/e-wallet di toko WordPress (panduan instalasi lengkap di dalamnya).
+- **Plugin WooCommerce** (repo terpisah): **[bayargg-woocommerce](https://github.com/bayar-global-gateway/bayargg-woocommerce)** — terima QRIS/e-wallet di toko WordPress, lengkap dengan panduan instalasi.
 
 ---
 
@@ -53,7 +53,7 @@ Dengan kit ini Anda bisa langsung: membuat payment link (QRIS & metode lain), ce
 │   ├── endpoints.json           # Daftar endpoint machine-readable
 │   ├── tutorial-lengkap.md      # Tutorial integrasi lengkap
 │   └── webhooks.md              # Referensi webhook callback
-├── examples/
+└── examples/
     ├── php/                     # Client + contoh PHP
     │   ├── BayarGgClient.php
     │   └── example.php
@@ -73,8 +73,6 @@ Dengan kit ini Anda bisa langsung: membuat payment link (QRIS & metode lain), ce
         ├── php/index.php
         ├── python/app.py        # Flask
         └── nodejs/server.mjs    # Express
-└── integrations/
-    └── woocommerce/             # Plugin WooCommerce siap pasang (panduan di README-nya)
 ```
 
 ---
