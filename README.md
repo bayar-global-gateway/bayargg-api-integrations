@@ -35,6 +35,7 @@ Dengan kit ini Anda bisa langsung: membuat payment link (QRIS & metode lain), ce
 - QRIS Converter: ubah QRIS statis menjadi QRIS dinamis bernominal (`qris-convert`, `qris-info`).
 - Digital Product API: file, hidden content, dan foto produk (`list-files`, `list-contents`, `list-images`).
 - WhatsApp Store API: daftar & selesaikan order (`wa-store-orders`, `wa-store-complete`).
+- **Merchant API**: hubungkan & baca akun OVO / BRI / GoPay / Livin' (`accounts-connect`) — paket Premium.
 - Webhook callback otomatis saat pembayaran sukses.
 
 ---
@@ -179,6 +180,8 @@ Semua path relatif terhadap `https://www.bayar.gg/api`.
 | `GET` | `/list-images.php` | Daftar foto produk |
 | `GET` | `/wa-store-orders.php` | Daftar order WhatsApp Store |
 | `POST` | `/wa-store-complete.php` | Tandai order WhatsApp Store selesai |
+| `GET` | `/accounts-connect.php` | Merchant API: status / info / balance / history |
+| `POST` | `/accounts-connect.php` | Merchant API: connect / set_qris / disconnect |
 
 ### POST `/create-payment.php`
 
@@ -245,6 +248,30 @@ Query: `search`, `status`, `payment_method`, `paid_via`, `start_date`, `end_date
 GET  /wa-store-orders.php?status=&search=&limit=50&offset=0
 POST /wa-store-complete.php   { "order_number": "WA260403-XXXX", "status": "completed", "notify": true }
 ```
+
+### Merchant API (`/accounts-connect.php`)
+
+Hubungkan & baca akun merchant **OVO**, **BRI**, **GoPay**, **Livin' by Mandiri** lewat API. **Butuh paket Premium "Semua Fitur"** (tanpa itu → `HTTP 402`). `provider`: `ovo` | `bri` | `gopay` | `livin`.
+
+```text
+# Baca
+GET  /accounts-connect.php?action=status
+GET  /accounts-connect.php?provider=livin&action=info
+GET  /accounts-connect.php?provider=gopay&action=balance
+GET  /accounts-connect.php?provider=bri&action=history&limit=10
+
+# Connect (POST body JSON)
+BRI    { "provider":"bri","action":"connect","host":"brimerchant.bri.co.id","username":"","password":"","mid":"","tid":"" }
+Livin  { "provider":"livin","action":"connect","phone":"","password":"" }  ->  { "action":"select_outlet","connect_token":"cs_xxx","outlet_id":"..." }
+OVO    otp_send -> otp_verify(otp) -> pin(pin)                 (bawa connect_token tiap langkah)
+GoPay  otp_start -> otp_initiate(method) -> otp_verify(otp) -> select_account(account_id)
+
+# QRIS statis (bri|livin) & putus
+POST /accounts-connect.php  { "provider":"bri","action":"set_qris","qris_string":"00020101..." }
+POST /accounts-connect.php  { "provider":"ovo","action":"disconnect" }
+```
+
+Contoh client: `merchantStatus()`, `merchantInfo()`, `merchantBalance()`, `merchantHistory()`, `merchantConnect()`, `merchantSetQris()`, `merchantDisconnect()` (PHP/Node) · `merchant_status()`, `merchant_connect()`, dst. (Python). CLI: `merchant-status`, `merchant-info`, `merchant-connect`, dst.
 
 Daftar endpoint lengkap: [`docs/api-docs-endpoints.md`](docs/api-docs-endpoints.md) · versi machine-readable: [`docs/endpoints.json`](docs/endpoints.json).
 

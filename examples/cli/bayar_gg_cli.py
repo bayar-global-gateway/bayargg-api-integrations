@@ -97,6 +97,32 @@ def build_parser() -> argparse.ArgumentParser:
     wa_complete.add_argument("--status", default="completed")
     wa_complete.add_argument("--no-notify", action="store_true")
 
+    # ── Merchant API (accounts-connect) — paket Premium "Semua Fitur" ──
+    sub.add_parser("merchant-status", help="Merchant connection status")
+
+    for name, helptext in (
+        ("merchant-info", "Merchant account info"),
+        ("merchant-balance", "Merchant balance (ovo/gopay/livin)"),
+        ("merchant-disconnect", "Disconnect merchant account"),
+    ):
+        command = sub.add_parser(name, help=helptext)
+        command.add_argument("--provider", required=True)
+
+    m_history = sub.add_parser("merchant-history", help="Merchant transaction history")
+    m_history.add_argument("--provider", required=True)
+    m_history.add_argument("--limit", type=int, default=20)
+
+    m_qris = sub.add_parser("merchant-set-qris", help="Set/clear static QRIS (bri|livin)")
+    m_qris.add_argument("--provider", required=True)
+    m_qris.add_argument("--qris-string", default="")
+
+    m_connect = sub.add_parser("merchant-connect", help="Merchant connect step (any provider flow)")
+    m_connect.add_argument("--provider", required=True)
+    m_connect.add_argument("--action", required=True)
+    for opt in ("host", "username", "password", "mid", "tid", "phone", "otp",
+                "pin", "method", "connect-token", "outlet-id", "account-id", "qris-string"):
+        m_connect.add_argument(f"--{opt}", default="")
+
     return parser
 
 
@@ -156,6 +182,26 @@ def run_command(client: BayarGgClient, args: argparse.Namespace) -> dict:
         )
     if args.command == "wa-complete":
         return client.complete_wa_store_order(args.order_number, args.status, notify=not args.no_notify)
+    if args.command == "merchant-status":
+        return client.merchant_status()
+    if args.command == "merchant-info":
+        return client.merchant_info(args.provider)
+    if args.command == "merchant-balance":
+        return client.merchant_balance(args.provider)
+    if args.command == "merchant-history":
+        return client.merchant_history(args.provider, args.limit)
+    if args.command == "merchant-set-qris":
+        return client.merchant_set_qris(args.provider, args.qris_string)
+    if args.command == "merchant-disconnect":
+        return client.merchant_disconnect(args.provider)
+    if args.command == "merchant-connect":
+        body = {"provider": args.provider, "action": args.action}
+        for attr in ("host", "username", "password", "mid", "tid", "phone", "otp",
+                     "pin", "method", "connect_token", "outlet_id", "account_id", "qris_string"):
+            value = getattr(args, attr, "")
+            if value:
+                body[attr] = value
+        return client.merchant_connect(body)
 
     raise ValueError(f"Unknown command: {args.command}")
 

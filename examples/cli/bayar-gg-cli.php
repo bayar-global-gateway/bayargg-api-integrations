@@ -112,10 +112,57 @@ function runCommand(BayarGgClient $client, string $command, array $args): ?array
                 toBool($args['notify'] ?? true)
             );
 
+        case 'merchant-status':
+            return $client->merchantStatus();
+
+        case 'merchant-info':
+            requireArg($args, 'provider');
+            return $client->merchantInfo($args['provider']);
+
+        case 'merchant-balance':
+            requireArg($args, 'provider');
+            return $client->merchantBalance($args['provider']);
+
+        case 'merchant-history':
+            requireArg($args, 'provider');
+            return $client->merchantHistory($args['provider'], (int)($args['limit'] ?? 20));
+
+        case 'merchant-set-qris':
+            requireArg($args, 'provider');
+            return $client->merchantSetQris($args['provider'], (string)($args['qris-string'] ?? $args['qrisString'] ?? ''));
+
+        case 'merchant-disconnect':
+            requireArg($args, 'provider');
+            return $client->merchantDisconnect($args['provider']);
+
+        case 'merchant-connect':
+            requireArg($args, 'provider');
+            requireArg($args, 'action');
+            return $client->merchantConnect(buildMerchantBody($args));
+
         default:
             printHelp();
             throw new InvalidArgumentException('Unknown command: ' . $command);
     }
+}
+
+function buildMerchantBody(array $args): array
+{
+    // Petakan opsi CLI → field body accounts-connect (mendukung semua alur connect).
+    $map = [
+        'provider' => 'provider', 'action' => 'action', 'host' => 'host',
+        'username' => 'username', 'password' => 'password', 'mid' => 'mid', 'tid' => 'tid',
+        'phone' => 'phone', 'otp' => 'otp', 'pin' => 'pin', 'method' => 'method',
+        'connect-token' => 'connect_token', 'outlet-id' => 'outlet_id',
+        'account-id' => 'account_id', 'qris-string' => 'qris_string',
+    ];
+    $body = [];
+    foreach ($map as $argKey => $bodyKey) {
+        if (isset($args[$argKey]) && $args[$argKey] !== true && $args[$argKey] !== '') {
+            $body[$bodyKey] = $args[$argKey];
+        }
+    }
+    return $body;
 }
 
 function parseArgs(array $rawArgs): array
@@ -175,6 +222,19 @@ Commands:
   qris-info --qris=...            Decode QRIS info
   wa-orders                       List WhatsApp Store orders
   wa-complete --order-number=...  Complete WhatsApp Store order
+
+Merchant API (paket Premium "Semua Fitur"):
+  merchant-status                       Status koneksi OVO/BRI/GoPay/Livin
+  merchant-info --provider=...          Info akun merchant
+  merchant-balance --provider=...       Saldo merchant (ovo/gopay/livin)
+  merchant-history --provider=... --limit=20   Riwayat transaksi
+  merchant-set-qris --provider=bri|livin --qris-string=...   Set/hapus QRIS statis
+  merchant-disconnect --provider=...    Putuskan akun
+  merchant-connect --provider=... --action=...  Connect step (lihat API Docs)
+      contoh BRI:   merchant-connect --provider=bri --action=connect --host=... --username=... --password=... --mid=... --tid=...
+      contoh OVO:   merchant-connect --provider=ovo --action=otp_send --phone=08...
+                    merchant-connect --provider=ovo --action=otp_verify --connect-token=cs_xxx --otp=123456
+                    merchant-connect --provider=ovo --action=pin --connect-token=cs_xxx --pin=123456
 
 Examples:
   php examples/cli/bayar-gg-cli.php methods

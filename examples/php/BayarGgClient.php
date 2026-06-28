@@ -83,6 +83,63 @@ final class BayarGgClient
         ]);
     }
 
+    // ── Merchant API (accounts-connect) — butuh paket Premium "Semua Fitur" ──
+
+    /** Status koneksi semua provider (ovo, bri, gopay, livin). */
+    public function merchantStatus(): array
+    {
+        return $this->request('GET', '/accounts-connect.php', ['action' => 'status']);
+    }
+
+    /** Info akun/profil merchant. provider: ovo|bri|gopay|livin. */
+    public function merchantInfo(string $provider): array
+    {
+        return $this->request('GET', '/accounts-connect.php', ['provider' => $provider, 'action' => 'info']);
+    }
+
+    /** Saldo merchant. provider: ovo|gopay|livin (BRI tidak punya saldo). */
+    public function merchantBalance(string $provider): array
+    {
+        return $this->request('GET', '/accounts-connect.php', ['provider' => $provider, 'action' => 'balance']);
+    }
+
+    /** Riwayat transaksi merchant. limit 1–100. */
+    public function merchantHistory(string $provider, int $limit = 20): array
+    {
+        return $this->request('GET', '/accounts-connect.php', ['provider' => $provider, 'action' => 'history', 'limit' => $limit]);
+    }
+
+    /**
+     * Langkah connect generik (mendukung semua alur):
+     *  - bri:   ['provider'=>'bri','action'=>'connect','host'=>..,'username'=>..,'password'=>..,'mid'=>..,'tid'=>..]
+     *  - livin: ['provider'=>'livin','action'=>'connect','phone'=>..,'password'=>..] lalu ['action'=>'select_outlet','connect_token'=>..,'outlet_id'=>..]
+     *  - ovo:   otp_send → otp_verify → pin
+     *  - gopay: otp_start → otp_initiate → otp_verify → select_account
+     */
+    public function merchantConnect(array $payload): array
+    {
+        return $this->request('POST', '/accounts-connect.php', [], $payload);
+    }
+
+    /** Set/hapus string QRIS statis (provider: bri|livin). Kirim string kosong untuk menghapus. */
+    public function merchantSetQris(string $provider, string $qrisString): array
+    {
+        return $this->request('POST', '/accounts-connect.php', [], [
+            'provider' => $provider,
+            'action' => 'set_qris',
+            'qris_string' => $qrisString,
+        ]);
+    }
+
+    /** Putuskan koneksi akun merchant. */
+    public function merchantDisconnect(string $provider): array
+    {
+        return $this->request('POST', '/accounts-connect.php', [], [
+            'provider' => $provider,
+            'action' => 'disconnect',
+        ]);
+    }
+
     private function request(string $method, string $path, array $query = [], ?array $body = null): array
     {
         $url = $this->baseUrl . $path;

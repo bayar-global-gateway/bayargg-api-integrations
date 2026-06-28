@@ -185,6 +185,33 @@ Body:
 }
 ```
 
+## Merchant API (`/api/accounts-connect`)
+
+Hubungkan & baca akun merchant **OVO**, **BRI**, **GoPay**, **Livin' by Mandiri** lewat API. **Butuh paket Premium "Semua Fitur"** (tanpa itu → `HTTP 402`). Auth header `X-API-Key`. `provider`: `ovo` | `bri` | `gopay` | `livin`. Rate limit 60 req/menit.
+
+### GET `/api/accounts-connect?action=status`
+
+Status koneksi semua provider (read-only).
+
+### GET `/api/accounts-connect?provider={provider}&action={info|balance|history}`
+
+Baca data akun yang sudah terhubung (real-time ke provider). `history` menerima `limit` (1–100, default 20). `balance` hanya untuk `ovo/gopay/livin`.
+
+### POST `/api/accounts-connect` — connect
+
+- **BRI** (1 langkah): `{"provider":"bri","action":"connect","host":"brimerchant.bri.co.id","username":"","password":"","mid":"","tid":""}`
+- **Livin**: `{"provider":"livin","action":"connect","phone":"","password":""}` → jika multi-outlet, lanjut `{"provider":"livin","action":"select_outlet","connect_token":"cs_xxx","outlet_id":"..."}`
+- **OVO** (3 langkah, bawa `connect_token`): `otp_send` → `otp_verify` (`otp`) → `pin` (`pin`)
+- **GoPay** (4 langkah, bawa `connect_token`): `otp_start` → `otp_initiate` (`method`) → `otp_verify` (`otp`) → `select_account` (`account_id`)
+
+### POST `/api/accounts-connect` — set_qris (bri | livin)
+
+`{"provider":"bri","action":"set_qris","qris_string":"00020101..."}` — kirim `qris_string` kosong untuk menghapus override.
+
+### POST `/api/accounts-connect` — disconnect
+
+`{"provider":"ovo","action":"disconnect"}`
+
 ## Webhook
 
 Webhook callback dikirim ke `callback_url` ketika payment sukses. Detail handler tersedia di `docs/webhooks.md`.

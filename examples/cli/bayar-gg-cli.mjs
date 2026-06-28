@@ -102,6 +102,47 @@ async function run(cmd, options) {
         booleanOption(options.notify, true),
       );
 
+    case 'merchant-status':
+      return client.merchantStatus();
+
+    case 'merchant-info':
+      requireOption(options.provider, 'provider');
+      return client.merchantInfo(options.provider);
+
+    case 'merchant-balance':
+      requireOption(options.provider, 'provider');
+      return client.merchantBalance(options.provider);
+
+    case 'merchant-history':
+      requireOption(options.provider, 'provider');
+      return client.merchantHistory(options.provider, numberOption(options.limit, 20));
+
+    case 'merchant-set-qris':
+      requireOption(options.provider, 'provider');
+      return client.merchantSetQris(options.provider, options.qris_string || options.qrisString || '');
+
+    case 'merchant-disconnect':
+      requireOption(options.provider, 'provider');
+      return client.merchantDisconnect(options.provider);
+
+    case 'merchant-connect': {
+      requireOption(options.provider, 'provider');
+      requireOption(options.action, 'action');
+      const body = { provider: options.provider, action: options.action };
+      const map = {
+        host: 'host', username: 'username', password: 'password', mid: 'mid', tid: 'tid',
+        phone: 'phone', otp: 'otp', pin: 'pin', method: 'method',
+        connectToken: 'connect_token', outletId: 'outlet_id', accountId: 'account_id', qrisString: 'qris_string',
+      };
+      for (const [optKey, bodyKey] of Object.entries(map)) {
+        const value = options[optKey];
+        if (value !== undefined && value !== null && value !== '' && value !== true) {
+          body[bodyKey] = value;
+        }
+      }
+      return client.merchantConnect(body);
+    }
+
     default:
       exitWithHelp(`Unknown command: ${cmd}`);
   }
@@ -176,6 +217,18 @@ Commands:
   qris-info --qris=...            Decode QRIS info
   wa-orders                       List WhatsApp Store orders
   wa-complete --order-number=...  Complete WhatsApp Store order
+
+Merchant API (paket Premium "Semua Fitur"):
+  merchant-status                       Connection status OVO/BRI/GoPay/Livin
+  merchant-info --provider=...          Merchant account info
+  merchant-balance --provider=...       Merchant balance (ovo/gopay/livin)
+  merchant-history --provider=... --limit=20   Transaction history
+  merchant-set-qris --provider=bri|livin --qris-string=...   Set/clear static QRIS
+  merchant-disconnect --provider=...    Disconnect account
+  merchant-connect --provider=... --action=...  Connect step (see API Docs)
+      OVO:  merchant-connect --provider=ovo --action=otp_send --phone=08...
+            merchant-connect --provider=ovo --action=otp_verify --connect-token=cs_xxx --otp=123456
+            merchant-connect --provider=ovo --action=pin --connect-token=cs_xxx --pin=123456
 
 Examples:
   node examples/cli/bayar-gg-cli.mjs methods

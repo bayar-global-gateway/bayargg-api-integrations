@@ -118,6 +118,30 @@
         "status": "completed",
         "notify": true
       }
+    },
+    {
+      "method": "GET",
+      "path": "/accounts-connect.php",
+      "description": "Merchant API: read connection status, account info, balance, or transaction history (Premium 'Semua Fitur')",
+      "query": {
+        "action": "status|info|balance|history",
+        "provider": "ovo|bri|gopay|livin",
+        "limit": 20
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/accounts-connect.php",
+      "description": "Merchant API: connect / set_qris / disconnect OVO, BRI, GoPay, Livin (Premium 'Semua Fitur')",
+      "body": {
+        "provider": "bri",
+        "action": "connect",
+        "host": "brimerchant.bri.co.id",
+        "username": "",
+        "password": "",
+        "mid": "",
+        "tid": ""
+      }
     }
   ]
 }

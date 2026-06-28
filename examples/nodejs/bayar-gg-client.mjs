@@ -60,6 +60,41 @@ export class BayarGgClient {
     });
   }
 
+  // ── Merchant API (accounts-connect) — butuh paket Premium "Semua Fitur" ──
+
+  merchantStatus() {
+    return this.request('GET', '/accounts-connect.php', { action: 'status' });
+  }
+
+  merchantInfo(provider) {
+    return this.request('GET', '/accounts-connect.php', { provider, action: 'info' });
+  }
+
+  merchantBalance(provider) {
+    return this.request('GET', '/accounts-connect.php', { provider, action: 'balance' });
+  }
+
+  merchantHistory(provider, limit = 20) {
+    return this.request('GET', '/accounts-connect.php', { provider, action: 'history', limit });
+  }
+
+  // Langkah connect generik (mendukung semua alur: bri/livin/ovo/gopay).
+  merchantConnect(payload) {
+    return this.request('POST', '/accounts-connect.php', {}, payload);
+  }
+
+  merchantSetQris(provider, qrisString) {
+    return this.request('POST', '/accounts-connect.php', {}, {
+      provider,
+      action: 'set_qris',
+      qris_string: qrisString,
+    });
+  }
+
+  merchantDisconnect(provider) {
+    return this.request('POST', '/accounts-connect.php', {}, { provider, action: 'disconnect' });
+  }
+
   async request(method, path, query = {}, body = null) {
     const url = new URL(this.baseUrl + path);
     for (const [key, value] of Object.entries(query)) {

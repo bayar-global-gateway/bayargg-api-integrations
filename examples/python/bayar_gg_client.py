@@ -63,6 +63,48 @@ class BayarGgClient:
             json={"order_number": order_number, "status": status, "notify": notify},
         )
 
+    # ── Merchant API (accounts-connect) — butuh paket Premium "Semua Fitur" ──
+
+    def merchant_status(self) -> dict[str, Any]:
+        """Status koneksi semua provider (ovo, bri, gopay, livin)."""
+        return self._request("GET", "/accounts-connect.php", params={"action": "status"})
+
+    def merchant_info(self, provider: str) -> dict[str, Any]:
+        """Info akun/profil merchant. provider: ovo|bri|gopay|livin."""
+        return self._request("GET", "/accounts-connect.php", params={"provider": provider, "action": "info"})
+
+    def merchant_balance(self, provider: str) -> dict[str, Any]:
+        """Saldo merchant. provider: ovo|gopay|livin (BRI tidak punya saldo)."""
+        return self._request("GET", "/accounts-connect.php", params={"provider": provider, "action": "balance"})
+
+    def merchant_history(self, provider: str, limit: int = 20) -> dict[str, Any]:
+        """Riwayat transaksi merchant. limit 1-100."""
+        return self._request(
+            "GET",
+            "/accounts-connect.php",
+            params={"provider": provider, "action": "history", "limit": limit},
+        )
+
+    def merchant_connect(self, payload: dict[str, Any]) -> dict[str, Any]:
+        """Langkah connect generik (mendukung semua alur: bri/livin/ovo/gopay)."""
+        return self._request("POST", "/accounts-connect.php", json=payload)
+
+    def merchant_set_qris(self, provider: str, qris_string: str) -> dict[str, Any]:
+        """Set/hapus string QRIS statis (provider: bri|livin)."""
+        return self._request(
+            "POST",
+            "/accounts-connect.php",
+            json={"provider": provider, "action": "set_qris", "qris_string": qris_string},
+        )
+
+    def merchant_disconnect(self, provider: str) -> dict[str, Any]:
+        """Putuskan koneksi akun merchant."""
+        return self._request(
+            "POST",
+            "/accounts-connect.php",
+            json={"provider": provider, "action": "disconnect"},
+        )
+
     def _request(self, method: str, path: str, **kwargs: Any) -> dict[str, Any]:
         response = self.session.request(method, self.base_url + path, timeout=30, **kwargs)
         try:
